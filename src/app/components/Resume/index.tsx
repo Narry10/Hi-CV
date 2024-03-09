@@ -16,6 +16,7 @@ import {
   useRegisterReactPDFHyphenationCallback,
 } from "components/fonts/hooks";
 import { NonEnglishFontsCSSLazyLoader } from "components/fonts/NonEnglishFontsCSSLoader";
+import { START_HOME_RESUME } from "home/constants";
 
 export const Resume = () => {
   const [scale, setScale] = useState(0.8);
@@ -42,7 +43,7 @@ export const Resume = () => {
               enablePDFViewer={DEBUG_RESUME_PDF_FLAG}
             >
               <ResumePDF
-                resume={resume}
+                resume={START_HOME_RESUME}
                 settings={settings}
                 isPDF={DEBUG_RESUME_PDF_FLAG}
               />

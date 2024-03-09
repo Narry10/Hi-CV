@@ -26,7 +26,7 @@ export const AutoTypingResume = () => {
   );
   const hasSetEndResume = useRef(false);
   const { isLg } = useTailwindBreakpoints();
-
+    
   useEffect(() => {
     const intervalId = setInterval(() => {
       let next = resumeCharIterator.current.next();
