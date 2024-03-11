@@ -11,7 +11,7 @@ export function* handleAuthLoginWithEmail(action: AuthLoginWithEmail): any {
       email: email,
       password: password,
     });
-    console.log(user);
+    
     
   } catch (error) {
     console.error(error);

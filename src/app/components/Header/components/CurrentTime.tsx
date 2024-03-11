@@ -27,4 +27,4 @@ const CurrentTime: React.FC = () => {
 	)
 };
 
-export default CurrentTime;
+export default React.memo(CurrentTime);
