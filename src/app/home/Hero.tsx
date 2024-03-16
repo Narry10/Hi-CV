@@ -1,8 +1,11 @@
 import Link from "next/link";
-import { FlexboxSpacer } from "components/FlexboxSpacer";
-import { AutoTypingResume } from "home/AutoTypingResume";
 
-export const Hero = () => {
+import React from "react";
+import { AutoTypingResume } from "./AutoTypingResume";
+import { FlexboxSpacer } from "components/FlexboxSpacer";
+import ActionButton from "./components/ActionButton";
+
+export const Hero:React.FC = () => {
   return (
     <section className="lg:flex lg:h-[825px] lg:justify-center">
       <FlexboxSpacer maxWidth={75} minWidth={0} className="hidden lg:block" />
@@ -13,11 +16,10 @@ export const Hero = () => {
           resume easily
         </h1>
         <p className="mt-3 text-lg lg:mt-5 lg:text-xl">
-          With this free, open-source, and powerful resume builder
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry.
         </p>
-        <Link href="/resume-import" className="btn-primary mt-6 lg:mt-14">
-          Create Resume <span aria-hidden="true">→</span>
-        </Link>
+        <ActionButton/>
         <p className="ml-6 mt-3 text-sm text-gray-600">No sign up required</p>
         <p className="mt-3 text-sm text-gray-600 lg:mt-36">
           Already have a resume? Test its ATS readability with the{" "}

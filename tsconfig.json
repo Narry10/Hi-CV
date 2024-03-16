@@ -27,6 +27,7 @@
       "contexts/*": ["../../src/contexts/*"],
       "server/*": ["../../src/server/*"],
       "assets/*": ["../../src/assets/*"],
+      "hooks/*": ["../../src/hooks/*"],
       "*": ["*"]
     }
   },

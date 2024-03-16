@@ -122,6 +122,7 @@ const BulletListTextareaGeneral = <T extends string>({
   showBulletPoints = true,
 }: InputProps<T, string[]> & { showBulletPoints?: boolean }) => {
   const html = getHTMLFromBulletListStrings(bulletListStrings);
+  // todo:class list item
   return (
     <InputGroupWrapper label={label} className={wrapperClassName}>
       <ContentEditable
