@@ -43,7 +43,7 @@ export const Resume = () => {
               enablePDFViewer={DEBUG_RESUME_PDF_FLAG}
             >
               <ResumePDF
-                resume={START_HOME_RESUME}
+                resume={resume}
                 settings={settings}
                 isPDF={DEBUG_RESUME_PDF_FLAG}
               />
