@@ -1,5 +1,6 @@
 import {
   AUTH_FETCH_EMAIL_LOGIN,
+  AUTH_GOOGLE_SIGNIN,
   AUTH_LOGGED,
   AUTH_LOGOUT,
   AUTH_SIGNUP,
@@ -25,6 +26,10 @@ export interface AuthOut {
   type: typeof AUTH_LOGOUT;
 }
 
+export interface AuthGoogleSignIn {
+  type: typeof AUTH_GOOGLE_SIGNIN;
+}
+
 export type authAction = AuthLoginWithEmail | AuthSinUpWithEmail;
 
 export const authLoginWithEmail = (payload: authLogin): AuthLoginWithEmail => ({
@@ -45,4 +50,8 @@ export const authLogged = (): AuthLogged => ({
 
 export const authOut = (): AuthOut => ({
   type: AUTH_LOGOUT,
+});
+
+export const authGoogleSignIn = (): AuthGoogleSignIn => ({
+  type: AUTH_GOOGLE_SIGNIN,
 });
