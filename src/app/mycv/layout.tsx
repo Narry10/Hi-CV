@@ -1,152 +1,123 @@
 "use client";
-import * as React from "react";
-import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import React, { ReactNode } from "react";
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import ChromeReaderModeIcon from '@mui/icons-material/ChromeReaderMode';
+import Link from "next/link";
+import { ResumeForm } from "components/ResumeForm";
+import { Resume } from "components/Resume";
+import RouterPath from "routes/routesContants";
 import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
+import { useAppSelector, useSaveStateToLocalStorageOnChange, useSetInitialStore } from "lib/redux/hooks";
+import { selectSettings } from "lib/redux/settingsSlice";
+interface SideBarItemChild {
+  icon: ReactNode;
+  name: string;
+  path: string;
+}
 
-const drawerWidth = 240;
-
-const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
-
-const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
+interface SideBarItem {
+  name: string;
+  children: SideBarItemChild[];
+}
+const SideBarItems: SideBarItem[] = [
+  {
+    name: "CV",
+    children:[
+      {
+        icon: <MenuBookIcon />,
+        name: "Resume",
+        path: RouterPath.MY_CV
+      },
+      {
+        icon: <ChromeReaderModeIcon />,
+        name: "Job Description",  
+        path: '/'
+      },
+    ]
   },
-});
+  {
+    name: "Settings",
+    children:[
+      {
+        icon: <ColorLensIcon />,
+        name: "Theme",
+        path: RouterPath.MY_CV_THEME
+      }
+    ]
+  }
+  ,
+  {
+    name: "Export",
+    children:[
+      {
+        icon: <PictureAsPdfIcon />,
+        name: "PDF",
+        path: "/your-item-path"
+      }
+    ]
+  }
+];
 
-interface AppBarProps {
-  open?: boolean;
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
-export default function MiniDrawerLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
+const MiniDrawerLayout = ({ children }: { children: React.ReactNode }) => {
+  const path = usePathname();
+  const setting = useAppSelector(selectSettings)
+  useSetInitialStore();
+  useSaveStateToLocalStorageOnChange();
+  console.log(path);
+  
   return (
-    <Box sx={{ display: "flex" }}>
-      {/* <CssBaseline /> */}
-
-      <MuiDrawer
-        variant="permanent"
-        open={open}
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          whiteSpace: "nowrap",
-          boxSizing: "border-box",
-          ...(open && {
-            ...openedMixin(theme),
-            "& .MuiDrawer-paper": openedMixin(theme),
-          }),
-          ...(!open && {
-            ...closedMixin(theme),
-            "& .MuiDrawer-paper": closedMixin(theme),
-          }),
-        }}
-      >
-        <DrawerHeader className="flex items-center justify-center">
-            {
-                open && (<h1 className="text-primary  text-2xl font-bold transition-all">Hi-CV</h1>) 
-            }
+    <div className="flex w-full">
+      <div className="">
+        <div className=" flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800">
+          <div className="min-h-screen flex flex-col w-64 bg-white h-full border-r">
+            <div className="flex items-center justify-center h-14 border-b">
+              <div>Creater your CV</div>
+            </div>
+            <div className="overflow-y-auto overflow-x-hidden flex-grow">
+              <ul className="flex flex-col py-4 space-y-1">
+                {SideBarItems.map((item, index) => (
+                  <div className="" key={index}>
+                    <li className="px-5">
+                      <div className="flex flex-row items-center h-8">
+                        <div className="text-sm font-light tracking-wide text-gray-500">{item.name}</div>
+                      </div>
+                    </li>
+                    {item.children.map((child) => (
+                      <Link href={child.path}  key={`${child.name}__item__index`}>
+                        <div className={`transition-all relative cursor-pointer flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6
+                          ${path === child.path ? "!border-indigo-500  text-gray-800 bg-gray-50" : ""}
+                        `}>
+                          <span className="inline-flex justify-center items-center ml-4">
+                            {child.icon}
+                          </span>
+                          <span className="ml-2 text-sm tracking-wide truncate">{child.name}</span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="w-full">
+      <div className="relative h-full w-full overflow-hidden bg-gray-50">
+        <div className="grid grid-cols-3 md:grid-cols-6 h-full">
+          <div className="col-span-3 border-r">
+            {children} 
+          </div>
+          <div className="col-span-3">
+            <Resume />
+          </div>
+        </div>
+      </div>
         
-          <IconButton onClick={open ? handleDrawerClose : handleDrawerOpen}>
-            {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </MuiDrawer>
-      <Box component="main" sx={{ flexGrow: 1, p:3}}>
-        {children}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
-}
+  }
+export default MiniDrawerLayout;

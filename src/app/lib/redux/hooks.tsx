@@ -12,6 +12,7 @@ import {
 import { initialResumeState, setResume } from "lib/redux/resumeSlice";
 import {
   initialSettings,
+  selectSettings,
   setSettings,
   type Settings,
 } from "lib/redux/settingsSlice";
@@ -36,6 +37,7 @@ export const useSaveStateToLocalStorageOnChange = () => {
 
 export const useSetInitialStore = () => {
   const dispatch = useAppDispatch();
+  const settings = useAppSelector(selectSettings)
   useEffect(() => {
     const state = loadStateFromLocalStorage();
     if (!state) return;

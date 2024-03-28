@@ -13,7 +13,7 @@ import {
   selectSettings,
   type GeneralSetting,
 } from "lib/redux/settingsSlice";
-import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
+import { useAppDispatch, useAppSelector, useSaveStateToLocalStorageOnChange } from "lib/redux/hooks";
 import type { FontFamily } from "components/fonts/constants";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 
@@ -25,16 +25,17 @@ export const ThemeForm = () => {
 
   const handleSettingsChange = (field: GeneralSetting, value: string) => {
     dispatch(changeSettings({ field, value }));
+    // useSaveStateToLocalStorageOnChange();
   };
 
   return (
-    <BaseForm>
+    <div className="h-full bg-white p-6">
       <div className="flex flex-col gap-6">
         <div className="flex items-center gap-2">
           <Cog6ToothIcon className="h-6 w-6 text-gray-600" aria-hidden="true" />
-          <h1 className="text-lg font-semibold tracking-wide text-gray-900 ">
+          <div className="text-lg font-semibold tracking-wide text-gray-900 ">
             Resume Setting
-          </h1>
+          </div>
         </div>
         <div>
           <InlineInput
@@ -95,6 +96,6 @@ export const ThemeForm = () => {
           />
         </div>
       </div>
-    </BaseForm>
+    </div>
   );
 };

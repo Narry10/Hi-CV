@@ -209,7 +209,7 @@ export const {
   changeSkills,
   changeCustom,
   addSectionInForm,
-  moveSectionInForm,
+  moveSectionInForm,    
   deleteSectionInFormByIdx,
   setResume,
 } = resumeSlice.actions;

@@ -5,6 +5,7 @@ export default class RouterPath {
 	static readonly RESUME_IMPORT = '/resume-import'
 	static readonly RESUME_PARSER = '/resume-parser'
 	static readonly MY_CV = '/mycv'
+	static readonly MY_CV_THEME = `${this.MY_CV}/theme`
 
 	static readonly PROFILE = '/profile'
 	
